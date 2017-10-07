@@ -24,7 +24,7 @@ public class UserInput : MonoBehaviour
         {      
             BuildingElement created = Instantiate(gameManager.getElementToBuild(), hitPoint, Quaternion.identity);
             created.transform.parent = gameManager.player.transform;
-            //gameManager.changeMode(Mode.Play);
+            gameManager.changeMode(Mode.Play);
         }
         else
         {

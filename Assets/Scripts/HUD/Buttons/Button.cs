@@ -13,7 +13,6 @@ public class Button : WorldObject {
     public override void mouseOver()
     {
         base.mouseOver();
-        Debug.Log("passe");
         this.GetComponent<SpriteRenderer>().color = UnityEngine.Color.white;
 
     }
