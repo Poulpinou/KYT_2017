@@ -8,6 +8,7 @@ public class Pig : GameCharacter {
     public Straw holdStraw;
     public BuildingElement mission;
     public string actualAction;
+    public float iddleZoneX; public float iddleZoneY;
 
     public override void click()
     {
@@ -59,7 +60,7 @@ public class Pig : GameCharacter {
 
     // Use this for initialization
     void Start () {
-		
+        moveTo(new Vector2(iddleZoneX, iddleZoneY));
 	}
 
     // Update is called once per frame

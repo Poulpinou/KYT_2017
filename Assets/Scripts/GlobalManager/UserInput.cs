@@ -18,8 +18,9 @@ public class UserInput : MonoBehaviour
     {
 
         GameObject hitObject = FindHitObject(Input.mousePosition);
-        //Vector2 hitPoint = FindHitPoint(Input.mousePosition);
-        
+        Vector2 hitPoint = FindHitPoint(Input.mousePosition);
+        //Debug.Log(hitPoint);
+
         if (gameManager.getCurrentMode() == Mode.Place)
         {
             gameManager.getElementToBuild().build();
@@ -79,12 +80,13 @@ public class UserInput : MonoBehaviour
 
     public static Vector2 FindHitPoint(Vector2 origin)
     {
+        
         //Ray ray = Camera.main.ScreenPointToRay(origin);
         //RaycastHit hit;
         //if (Physics.Raycast(ray, out hit)) return hit.point;
         Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
         RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero, 0f);
-        if(hit) return hit.point;
+        if (hit) return hit.point;
         return new Vector2(0, 0);
     }
 
