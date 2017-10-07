@@ -8,9 +8,10 @@ public class Straw : BuildingElement {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+    }
 }

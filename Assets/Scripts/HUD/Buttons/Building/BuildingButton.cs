@@ -11,16 +11,22 @@ public class BuildingButton : Button {
     {
         base.click();
         gameManager.setElementToBuild(target);
-        gameManager.changeMode(Mode.Build);
+        gameManager.changeMode(Mode.Place);
+        BuildingElement created = Instantiate(gameManager.getElementToBuild(), Input.mousePosition, Quaternion.identity);
+        created.transform.parent = gameManager.player.transform;
+        created.GetComponent<Rigidbody2D>().simulated = false;
+        gameManager.setElementToBuild(created);
     }
 
     // Use this for initialization
     void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    // Update is called once per frame
+    protected override void Update()
+    {
+        base.Update();
+
+    }
 }

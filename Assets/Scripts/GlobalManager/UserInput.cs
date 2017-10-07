@@ -20,11 +20,11 @@ public class UserInput : MonoBehaviour
         GameObject hitObject = FindHitObject(Input.mousePosition);
         Vector2 hitPoint = FindHitPoint(Input.mousePosition);
         
-        if (gameManager.getCurrentMode() == Mode.Build)
-        {      
-            BuildingElement created = Instantiate(gameManager.getElementToBuild(), hitPoint, Quaternion.identity);
-            created.transform.parent = gameManager.player.transform;
+        if (gameManager.getCurrentMode() == Mode.Place)
+        {
             //gameManager.changeMode(Mode.Play);
+            gameManager.getElementToBuild().build();
+            gameManager.changeMode(Mode.Play);
         }
         else
         {
@@ -48,12 +48,16 @@ public class UserInput : MonoBehaviour
 
     private void MouseHover()
     {
-        GameObject hitObject = FindHitObject(Input.mousePosition);
-        Vector2 hitPoint = FindHitPoint(Input.mousePosition);
-        if (hitObject && hitObject.name != "background")
+        if(gameManager.getCurrentMode() != Mode.Place)
         {
-            hitObject.GetComponent<WorldObject>().mouseOver();
+            GameObject hitObject = FindHitObject(Input.mousePosition);
+            Vector2 hitPoint = FindHitPoint(Input.mousePosition);
+            if (hitObject && hitObject.name != "background")
+            {
+                hitObject.GetComponent<WorldObject>().mouseOver();
+            }
         }
+        
     }
 
     public static GameObject FindHitObject(Vector2 origin)
@@ -90,6 +94,7 @@ public class UserInput : MonoBehaviour
     void Update()
     {
             MouseActivity();
-
+        if (gameManager.getCurrentMode() == Mode.Place && !gameManager.getElementToBuild().isBuilt())
+            gameManager.getElementToBuild().FollowCursor(FindHitPoint(Input.mousePosition));
     }
 }
