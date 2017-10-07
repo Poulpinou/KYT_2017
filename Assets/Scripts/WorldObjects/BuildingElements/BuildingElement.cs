@@ -41,12 +41,15 @@ public class BuildingElement : WorldObject {
     // Use this for initialization
     void Awake () {
         builded = false;
+        value = Random.Range(1, 20);
+        GetComponentInChildren<TextMesh>().text = value.ToString();
     }
 	
 	// Update is called once per frame
 	protected override void Update () {
         base.Update();
         
+        if (GetComponentInChildren<TextMesh>().transform.rotation != Quaternion.identity) GetComponentInChildren<TextMesh>().transform.rotation = Quaternion.identity;
 
     }
 }

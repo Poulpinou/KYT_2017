@@ -45,8 +45,6 @@ public class GameManager : MonoBehaviour {
         {
             if (child.isInRange()) points += child.getValue();
         }
-
-        Debug.Log(points);
     }
 
     public bool isVictory()
