@@ -18,6 +18,11 @@ public class GameManager : MonoBehaviour {
         this.mode = mode;
     }
 
+    public void setSelectedElement(WorldObject element)
+    {
+        selectedElement = element;
+    }
+
     //Building
     private BuildingElement selectedConstruction;
 
