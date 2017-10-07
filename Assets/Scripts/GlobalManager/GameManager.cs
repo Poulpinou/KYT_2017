@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour {
     private WorldObject selectedElement;
     private Mode mode;
     public Player player;
+    public int points = 0;
+    public int objective = 42;
 
     public Mode getCurrentMode()
     {
@@ -16,6 +18,11 @@ public class GameManager : MonoBehaviour {
     public void changeMode(Mode mode)
     {
         this.mode = mode;
+    }
+
+    public void setSelectedElement(WorldObject element)
+    {
+        selectedElement = element;
     }
 
     //Building
@@ -29,6 +36,22 @@ public class GameManager : MonoBehaviour {
     public void setElementToBuild(BuildingElement elementToBuild)
     {
         selectedConstruction = elementToBuild;
+    }
+
+    public void calculatePoints()
+    {
+        points = 0;
+        foreach (BuildingElement child in player.transform.GetComponentsInChildren<BuildingElement>())
+        {
+            if (child.isInRange()) points += child.getValue();
+        }
+
+        Debug.Log(points);
+    }
+
+    public bool isVictory()
+    {
+        return points == objective;
     }
 
 

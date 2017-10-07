@@ -18,11 +18,10 @@ public class UserInput : MonoBehaviour
     {
 
         GameObject hitObject = FindHitObject(Input.mousePosition);
-        Vector2 hitPoint = FindHitPoint(Input.mousePosition);
+        //Vector2 hitPoint = FindHitPoint(Input.mousePosition);
         
         if (gameManager.getCurrentMode() == Mode.Place)
         {
-            //gameManager.changeMode(Mode.Play);
             gameManager.getElementToBuild().build();
             gameManager.changeMode(Mode.Play);
         }
@@ -39,10 +38,15 @@ public class UserInput : MonoBehaviour
     private void RightMouseClick()
     {
         GameObject hitObject = FindHitObject(Input.mousePosition);
-        Vector2 hitPoint = FindHitPoint(Input.mousePosition);
+        //Vector2 hitPoint = FindHitPoint(Input.mousePosition);
         if (gameManager.getCurrentMode() == Mode.Play && hitObject)
         {
             Destroy(hitObject);
+        }
+        if(gameManager.getCurrentMode() == Mode.Place)
+        {
+            DestroyObject(gameManager.getElementToBuild());
+            gameManager.changeMode(Mode.Play);
         }
     }
 
