@@ -50,6 +50,22 @@ public class UserInput : MonoBehaviour
             }
 
         }
+        else if (gameManager.getCurrentMode() == Mode.RepairSelect)
+        {
+            if (hitObject.GetComponent<Wood>())
+            {
+                Pig pig = gameManager.getSelectedPig();
+                pig.mission = hitObject.GetComponent<Wood>();            
+                pig.subaction = "go_to";
+                gameManager.changeMode(Mode.Play);
+            }
+            else
+            {
+                Debug.Log("Invalid Selection");
+                gameManager.changeMode(Mode.Play);
+            }
+
+        }
         else if (gameManager.getCurrentMode() == Mode.RecycleSelect)
         {
             if (hitObject.GetComponent<BuildingElement>())
@@ -92,16 +108,14 @@ public class UserInput : MonoBehaviour
     private void RightMouseClick()
     {
         GameObject hitObject = FindHitObject(Input.mousePosition);
+        if (gameManager.getCurrentMode() == Mode.Place)
+            gameManager.getElementToBuild().rotate();
         //Vector2 hitPoint = FindHitPoint(Input.mousePosition);
-        if (gameManager.getCurrentMode() == Mode.Play && hitObject)
-        {
-            Destroy(hitObject);
-        }
-        if(gameManager.getCurrentMode() == Mode.Place)
+        /*if(gameManager.getCurrentMode() == Mode.Place)
         {
             DestroyObject(gameManager.getElementToBuild());
             gameManager.changeMode(Mode.Play);
-        }
+        }*/
     }
 
     private void MouseHover()

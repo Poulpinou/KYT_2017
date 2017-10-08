@@ -5,7 +5,7 @@ using bloup;
 
 public class BuildingElement : WorldObject {
     protected bool builded;
-    int value;
+    int value ;
 
     public int getAmountHarvested()
     {
@@ -21,6 +21,11 @@ public class BuildingElement : WorldObject {
         return value;
     }
 
+    public void setValue(int value)
+    {
+        this.value = value;
+    }
+
     public bool isInRange()
     {
         /*int width = Screen.width;
@@ -28,12 +33,20 @@ public class BuildingElement : WorldObject {
         Debug.Log("25% : " + quartWidth);
         int troisquartWidth = width / 100 * 75;
         Debug.Log("75% : " + troisquartWidth);*/
-        return transform.position.x >= -4 && transform.position.x <= 4;
+        return transform.position.x >= -4 && transform.position.x <= 4 && builded;
+    }
+
+    public void rotate()
+    {
+        Debug.Log("Rotate");
+        transform.rotation = Quaternion.Euler(new Vector3(transform.rotation.x, transform.rotation.y, transform.rotation.z + 90));
     }
 
     public void recycle()
     {
-        //Temporary
+        ActionBar actionBar = Camera.main.GetComponentInChildren<ActionBar>();
+        actionBar.addToStock(this);
+        actionBar.reloadActions();
         Destroy(this.gameObject);
     }
 
@@ -45,25 +58,27 @@ public class BuildingElement : WorldObject {
     public void FollowCursor(Vector2 mousePosition)
     {
         transform.position = mousePosition;
+        GetComponentInChildren<TextMesh>().text = value.ToString();
     }
 
     public void build()
     {
         GetComponent<Rigidbody2D>().simulated = true;
+        GetComponentInChildren<TextMesh>().text = value.ToString();
         builded = true;
         
     }
     // Use this for initialization
-    void Awake () {
+    protected override void Awake () {
+        base.Awake();
         builded = false;
-        value = Random.Range(1, 20);
-        GetComponentInChildren<TextMesh>().text = value.ToString();
     }
 	
 	// Update is called once per frame
 	protected override void Update () {
         base.Update();
         if (GetComponentInChildren<TextMesh>().transform.rotation != Quaternion.identity) GetComponentInChildren<TextMesh>().transform.rotation = Quaternion.identity;
+
 
     }
 }

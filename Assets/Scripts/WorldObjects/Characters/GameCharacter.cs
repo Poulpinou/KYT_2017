@@ -33,7 +33,7 @@ public class GameCharacter : WorldObject
         trajectAmount += Time.deltaTime * speed;
         if(trajectAmount >= 1)
         {
-            transform.position = destination;
+            transform.position = new Vector3(destination.x, destination.y, -5);
             isMoving = false;
         }
         else

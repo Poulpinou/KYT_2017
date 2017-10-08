@@ -10,6 +10,8 @@ public class Pig : GameCharacter {
     public string actualAction;
     public string subaction;
     public float iddleZoneX; public float iddleZoneY;
+    public Sprite holdSprite;
+    public Sprite mainSprite;
 
     public override void click()
     {
@@ -54,6 +56,29 @@ public class Pig : GameCharacter {
                     }
                 case "repair":
                     {
+                        if (subaction == null)
+                        {
+                            gameManager.changeMode(Mode.RepairSelect);
+                            subaction = "select_repair";
+                        }
+                        if (subaction == "go_to")
+                        {
+                            moveTo(mission.transform.position);
+                            subaction = "moving";
+
+                        }
+                        if (subaction == "moving")
+                        {
+                            if (!isMoving)
+                            {
+                                mission.GetComponent<Wood>().repair();
+                                //Ajouter du temps d'attente
+                                actualAction = null;
+                                subaction = null;
+                                mission = null;
+                                moveTo(new Vector2(iddleZoneX, iddleZoneY));
+                            }
+                        }
                         break;
                     }
                 case "recycle":
@@ -102,17 +127,21 @@ public class Pig : GameCharacter {
                             {
                                 actualAction = "working";
                                 holdStraw.protect(true);
-                                subaction = null;
+                                subaction = "hold";
                             }
                         }
                         break;
                     }
                 case "working":
                     {
+                        if (subaction == "hold")
+                            this.GetComponent<SpriteRenderer>().sprite = holdSprite;
+                            transform.position = new Vector3(holdStraw.transform.position.x, holdStraw.transform.position.y, -5);
                         break;
                     }
                 default:
                     {
+                        this.GetComponent<SpriteRenderer>().sprite = mainSprite;
                         actualAction = null;
                         subaction = null;
                         moveTo(new Vector2(iddleZoneX, iddleZoneY));

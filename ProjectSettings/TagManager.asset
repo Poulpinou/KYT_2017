@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Menu_1
   - Menu_2
+  - Fracture
+  - Pieces
   layers:
   - Default
   - TransparentFX

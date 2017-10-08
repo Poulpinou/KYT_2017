@@ -82,12 +82,14 @@
     <Compile Include="Assets\Scripts\GlobalManager\ActionBarStart.cs" />
     <Compile Include="Assets\Scripts\GlobalManager\Enums.cs" />
     <Compile Include="Assets\Scripts\GlobalManager\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GlobalManager\MenuPause.cs" />
     <Compile Include="Assets\Scripts\GlobalManager\Player.cs" />
     <Compile Include="Assets\Scripts\GlobalManager\ResourceManager.cs" />
     <Compile Include="Assets\Scripts\GlobalManager\UserInput.cs" />
     <Compile Include="Assets\Scripts\HUD\Buttons\Building\BuildingButton.cs" />
     <Compile Include="Assets\Scripts\HUD\Buttons\Button.cs" />
     <Compile Include="Assets\Scripts\HUD\Buttons\Character\ActionButton.cs" />
+    <Compile Include="Assets\Scripts\HUD\Buttons\Character\Blow.cs" />
     <Compile Include="Assets\Scripts\HUD\Buttons\Character\SelectRessourceButton.cs" />
     <Compile Include="Assets\Scripts\HUD\Menus\PigMenu.cs" />
     <Compile Include="Assets\Scripts\HUD\Trucks\LoadTravelBar.cs" />
@@ -99,7 +101,8 @@
     <Compile Include="Assets\Scripts\WorldObjects\BuildingElements\Wood.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Characters\GameCharacter.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Characters\Pigs\Pig.cs" />
-    <Compile Include="Assets\Scripts\WorldObjects\Endline.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\Characters\Wolf\Wolf.cs" />
+    <Compile Include="Assets\Scripts\WorldObjects\EndLine.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\Floor.cs" />
     <Compile Include="Assets\Scripts\WorldObjects\WorldObject.cs" />
   </ItemGroup>

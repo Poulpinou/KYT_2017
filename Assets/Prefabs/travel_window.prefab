@@ -114,7 +114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pig: {fileID: 0}
   mission: {fileID: 0}
-  speed: 50
+  speed: 10
 --- !u!114 &114727584305443226
 MonoBehaviour:
   m_ObjectHideFlags: 1

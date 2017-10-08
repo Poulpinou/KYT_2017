@@ -4,6 +4,7 @@ using UnityEngine;
 using bloup;
 
 public class GameManager : MonoBehaviour {
+    public int level;
     private Pig selectedPig;
     private Mode mode;
     public ActionBar actionBar;
@@ -11,6 +12,9 @@ public class GameManager : MonoBehaviour {
     public int points = 0;
     public int objective = 42;
     public Slot[] slots = new Slot[3];
+    public TextMesh scorePanel;
+    public bool isHeightReached = false;
+    public EndLine endLine;
 
     public Slot getFirstAvailableSlot()
     {
@@ -63,12 +67,17 @@ public class GameManager : MonoBehaviour {
         {
             if (child.isInRange()) points += child.getValue();
         }
+        scorePanel.text = points + "/" + objective;
+
+        if (points == objective && isHeightReached)
+            Victory();
 
     }
 
-    public bool isVictory()
+    public void Victory()
     {
-        return points == objective;
+        endLine.celebrate();
+        Debug.Log("You Win");
     }
 
 
@@ -76,11 +85,27 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         mode = Mode.Play;
+        level = 1;
+    }
+
+    private float timer = 0;
+    void checkVictory()
+    {
+        if(timer > 2)
+        {
+            timer = 0;
+            calculatePoints();
+
+        }
+        else
+        {
+            timer += Time.deltaTime;
+        }
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+    // Update is called once per frame
+    void Update () {
+        checkVictory();
 	}
 }
