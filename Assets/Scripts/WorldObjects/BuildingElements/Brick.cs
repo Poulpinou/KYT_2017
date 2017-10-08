@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class Brick : BuildingElement {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
 
     // Update is called once per frame
     protected override void Update()

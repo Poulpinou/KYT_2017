@@ -11,6 +11,7 @@ public class GameCharacter : WorldObject
     protected Vector2 destination;
     protected float trajectAmount;
     public float speed;
+    public char orientation;
     
 
     protected virtual void performAction()
@@ -19,9 +20,10 @@ public class GameCharacter : WorldObject
     }
 
     public void moveTo(Vector2 destination)
-    {
+    {    
         this.destination = destination;
         origin = transform.position;
+        GetComponent<SpriteRenderer>().flipX = (destination.x > origin.x && orientation == 'l') || (destination.x < origin.x && orientation == 'r');
         trajectAmount = 0;
         isMoving = true;
     }
@@ -49,8 +51,9 @@ public class GameCharacter : WorldObject
 
 
     // Use this for initialization
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         isMoving = false;
         iddleOn = true;
     }

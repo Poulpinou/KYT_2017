@@ -16,7 +16,7 @@ public class WorldObject : MonoBehaviour {
     }
 
     // Use this for initialization
-    void Awake () {
+    protected virtual void Awake () {
         gameManager = Camera.main.GetComponent<GameManager>();
 	}
 	

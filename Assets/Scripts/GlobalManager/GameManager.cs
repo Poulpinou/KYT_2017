@@ -4,11 +4,24 @@ using UnityEngine;
 using bloup;
 
 public class GameManager : MonoBehaviour {
-    private WorldObject selectedElement;
+    private Pig selectedPig;
     private Mode mode;
+    public ActionBar actionBar;
     public Player player;
     public int points = 0;
     public int objective = 42;
+    public Slot[] slots = new Slot[3];
+
+    public Slot getFirstAvailableSlot()
+    {
+        foreach(Slot slot in this.slots)
+        {
+            Debug.Log("Slot: "+ slot.available());
+            if (slot.available())
+                return slot;
+        }
+        return null;
+    }
 
     public Mode getCurrentMode()
     {
@@ -20,9 +33,14 @@ public class GameManager : MonoBehaviour {
         this.mode = mode;
     }
 
-    public void setSelectedElement(WorldObject element)
+    public void setSelectedPig(Pig pig)
     {
-        selectedElement = element;
+        selectedPig = pig;
+    }
+
+    public Pig getSelectedPig()
+    {
+        return selectedPig;
     }
 
     //Building
@@ -46,7 +64,6 @@ public class GameManager : MonoBehaviour {
             if (child.isInRange()) points += child.getValue();
         }
 
-        Debug.Log(points);
     }
 
     public bool isVictory()

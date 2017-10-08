@@ -26,10 +26,63 @@ public class UserInput : MonoBehaviour
             gameManager.getElementToBuild().build();
             gameManager.changeMode(Mode.Play);
         }
+        else if (gameManager.getCurrentMode() == Mode.HoldSelect)
+        {
+            if (hitObject.GetComponent<Straw>())
+            {
+
+                Pig pig = gameManager.getSelectedPig();
+                pig.holdStraw = hitObject.GetComponent<Straw>();
+                if (pig.holdStraw.isProtected())
+                {
+                    Debug.Log("Already Protected");
+                }
+                else
+                {
+                    pig.subaction = "go_to";
+                    gameManager.changeMode(Mode.Play);
+                }
+            }
+            else
+            {
+                Debug.Log("Invalid Selection");
+                gameManager.changeMode(Mode.Play);
+            }
+
+        }
+        else if (gameManager.getCurrentMode() == Mode.RecycleSelect)
+        {
+            if (hitObject.GetComponent<BuildingElement>())
+            {
+                Pig pig = gameManager.getSelectedPig();
+                pig.mission = hitObject.GetComponent<BuildingElement>();
+                pig.subaction = "go_to";
+                gameManager.changeMode(Mode.Play);
+            }
+            else
+            {
+                Debug.Log("Invalid Selection");
+                gameManager.changeMode(Mode.Play);
+            }
+
+        }
+        else if (gameManager.getCurrentMode() == Mode.ConvoySelect)
+        {
+            if (hitObject.GetComponent<SelectRessourceButton>())
+            {
+                gameManager.changeMode(Mode.Play);
+            }
+            else
+            {
+                hitObject.GetComponent<SelectRessourceButton>().menu.close();
+                gameManager.changeMode(Mode.Play);
+            }
+        }
         else
         {
-            if (hitObject)
+            if (hitObject && hitObject.name != "background")
             {
+                Debug.Log("hit : " + hitObject.name);
                 hitObject.GetComponent<WorldObject>().click();
             }
         }
@@ -53,7 +106,7 @@ public class UserInput : MonoBehaviour
 
     private void MouseHover()
     {
-        if(gameManager.getCurrentMode() != Mode.Place)
+        if(gameManager.getCurrentMode() == Mode.Play)
         {
             GameObject hitObject = FindHitObject(Input.mousePosition);
             Vector2 hitPoint = FindHitPoint(Input.mousePosition);

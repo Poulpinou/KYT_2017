@@ -18,6 +18,12 @@ public class BuildingButton : Button {
         gameManager.setElementToBuild(created);
     }
 
+    public void mutate(BuildingElement element)
+    {
+        this.target = element;
+        this.GetComponent<SpriteRenderer>().sprite = element.GetComponent<SpriteRenderer>().sprite;
+    }
+
     // Use this for initialization
     void Start () {
 		
